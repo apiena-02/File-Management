@@ -11,15 +11,22 @@ import sys
 import logging
 import shutil
 from watchdog.observers import Observer
-from watchdog.events import LoggingEventHandler
+from watchdog.events import FileSystemEventHandler
 
 source = "/Users/apienaselvarajah/Downloads"
+destination = "/Users/apienaselvarajah/Desktop/test"
 
-class manageDownloads():
-    entries = os.listdir(source)
+class manageDownloads(FileSystemEventHandler):
+    def on_modified(self, event):
+        entries = os.listdir(source)
 
-    for entry in entries:
-        print(entry)
+        for entry in entries:
+            source_path = os.path.join(source, entry)
+            destination_path = os.path.join(destination, entry)
+            
+            # Check if the entry is a file before moving
+            if os.path.isfile(source_path):
+                shutil.move(source_path, destination_path)
     
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
