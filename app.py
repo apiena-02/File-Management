@@ -6,7 +6,6 @@ Description: Monitors the Downloads folder and automatically organizes files int
 """
 
 import os
-import sys
 import logging
 import shutil
 from watchdog.observers import Observer
