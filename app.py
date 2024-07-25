@@ -51,8 +51,14 @@ class manageDownloads(FileSystemEventHandler):
                 destination_path = os.path.join(destination_other, entry)
             
             # Check if the entry is a file before moving
+            
             if os.path.isfile(source_path):
-                shutil.move(source_path, destination_path)
+                try:
+                    shutil.move(source_path, destination_path)
+                    logging.info("Moved " + entry + " to " + destination_path)
+                except Exception as e:
+                    logging.error("Error moving " + entry + ": " + str(e))
+
     
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
