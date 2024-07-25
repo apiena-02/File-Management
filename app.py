@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Tue Jul 23 13:10:24 2024
-
-@author: apienaselvarajah
+Author: Apiena Selvarajah
+Date: July 23, 2024
+Description: [Brief description of the file or project]
 """
 
 import os
@@ -14,7 +12,12 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 source = "/Users/apienaselvarajah/Downloads"
-destination = "/Users/apienaselvarajah/Desktop/test"
+destination_videos = "/Users/apienaselvarajah/Downloads/Videos"
+destination_pdf = "/Users/apienaselvarajah/Downloads/PDFs"
+destination_docs = "/Users/apienaselvarajah/Downloads/WordDocs"
+destination_images = "/Users/apienaselvarajah/Downloads/Images"
+destination_powerpoints = "/Users/apienaselvarajah/Downloads/PowerPoints"
+destination_other = "/Users/apienaselvarajah/Downloads/Other"
 
 class manageDownloads(FileSystemEventHandler):
     def on_modified(self, event):
@@ -22,7 +25,23 @@ class manageDownloads(FileSystemEventHandler):
 
         for entry in entries:
             source_path = os.path.join(source, entry)
-            destination_path = os.path.join(destination, entry)
+            if (entry.endswith('.MOV') or entry.endswith('.mp4') or entry.endswith('.mpg') or entry.endswith('.mov')):
+                destination_path = os.path.join(destination_videos, entry)
+            
+            elif (entry.endswith('.pdf')):
+                destination_path = os.path.join(destination_pdf, entry)
+            
+            elif (entry.endswith('.docx') or entry.endswith('.doc')):
+                destination_path = os.path.join(destination_docs, entry)
+
+            elif (entry.endswith('.png') or entry.endswith('.jpg')):
+                destination_path = os.path.join(destination_images, entry)
+            
+            elif (entry.endswith('.pptx') or entry.endswith('.ppsx') or entry.endswith('.ppt')):
+                destination_path = os.path.join(destination_powerpoints, entry)
+            
+            else:
+                destination_path = os.path.join(destination_other, entry)
             
             # Check if the entry is a file before moving
             if os.path.isfile(source_path):
