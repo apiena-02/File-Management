@@ -12,6 +12,7 @@ import shutil
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+# Paths for organizing files
 source = "/Users/apienaselvarajah/Downloads"
 destination_videos = "/Users/apienaselvarajah/Downloads/Videos"
 destination_pdf = "/Users/apienaselvarajah/Downloads/PDFs"
@@ -21,12 +22,18 @@ destination_powerpoints = "/Users/apienaselvarajah/Downloads/PowerPoints"
 destination_other = "/Users/apienaselvarajah/Downloads/Other"
 
 class manageDownloads(FileSystemEventHandler):
+    """
+    Handles file system events to organize files in the Downloads folder
+    into specific subfolders based on their types.
+    """
     def on_modified(self, event):
         entries = os.listdir(source)
 
         for entry in entries:
             source_path = os.path.join(source, entry)
-            if (entry.endswith('.MOV') or entry.endswith('.mp4') or entry.endswith('.mpg') or entry.endswith('.mov')):
+
+            # Determine the destination path based on file type
+            if (entry.endswith('.MOV') or entry.endswith('.mp4') or entry.endswith('.mpg')):
                 destination_path = os.path.join(destination_videos, entry)
             
             elif (entry.endswith('.pdf')):
