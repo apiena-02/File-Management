@@ -1,7 +1,8 @@
 """
 Author: Apiena Selvarajah
 Date: July 23, 2024
-Description: [Brief description of the file or project]
+Description: Monitors the Downloads folder and automatically organizes files into specific subfolders based on their types 
+(videos, PDFs, documents, images, presentations, and other)
 """
 
 import os
